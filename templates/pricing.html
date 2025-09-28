@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block title %}Pricing - TrueTone AI{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin: 2rem auto;">
+    <div class="text-center mb-4">
+        <h1>Choose Your Plan</h1>
+        <p>Start free, upgrade when you need more power</p>
+    </div>
+    
+    <div class="row">
+        <!-- Free Plan -->
+        <div class="col-md-4">
+            <div class="pricing-card card">
+                <h3>Free Plan</h3>
+                <div class="price">$0<span class="price-period">/month</span></div>
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> 100 words per input</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> 3 essays per day</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Basic humanization</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Copy & download</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Community support</li>
+                </ul>
+                {% if current_user.is_authenticated %}
+                    <button class="btn btn-outline" disabled>Current Plan</button>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-outline">Get Started Free</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Pro Plan -->
+        <div class="col-md-4">
+            <div class="pricing-card card featured">
+                <h3>Pro Plan</h3>
+                <div class="price">$4.99<span class="price-period">/month</span></div>
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Unlimited words</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Unlimited essays</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Advanced humanization</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Citation builder (APA, MLA, Harvard)</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Priority support</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Export to multiple formats</li>
+                </ul>
+                {% if current_user.is_authenticated and current_user.plan == 'pro' %}
+                    <button class="btn btn-primary" disabled>Current Plan</button>
+                {% else %}
+                    <div id="pro-paypal-button-container" class="paypal-button-container"></div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Enterprise Plan -->
+        <div class="col-md-4">
+            <div class="pricing-card card">
+                <h3>Enterprise</h3>
+                <div class="price">$12.99<span class="price-period">/month</span></div>
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Everything in Pro</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Plagiarism checker</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Advanced AI features</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> API access</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> 24/7 priority support</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Custom integrations</li>
+                </ul>
+                {% if current_user.is_authenticated and current_user.plan == 'enterprise' %}
+                    <button class="btn btn-outline" disabled>Current Plan</button>
+                {% else %}
+                    <div id="enterprise-paypal-button-container" class="paypal-button-container"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features Comparison -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Feature Comparison</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Free</th>
+                        <th>Pro</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Words per input</td>
+                        <td>100</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Essays per day</td>
+                        <td>3</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Text humanization</td>
+                        <td>Basic</td>
+                        <td>Advanced</td>
+                        <td>Advanced</td>
+                    </tr>
+                    <tr>
+                        <td>Citation builder</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Plagiarism checker</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>API access</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Community</td>
+                        <td>Priority</td>
+                        <td>24/7 Priority</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- FAQ Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Frequently Asked Questions</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Can I change my plan anytime?</h5>
+                <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+                
+                <h5>Is there a free trial?</h5>
+                <p>Our Free Plan is always available with no time limits. You can use it indefinitely with the stated limitations.</p>
+            </div>
+            <div class="col-md-6">
+                <h5>What payment methods do you accept?</h5>
+                <p>We accept all major credit cards and PayPal through our secure payment processor.</p>
+                
+                <h5>Can I cancel my subscription?</h5>
+                <p>Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your billing period.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PayPal Integration -->
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// PayPal integration
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize PayPal buttons
+    initializePayPalButtons();
+});
+
+function initializePayPalButtons() {
+    // Pro Plan Button
+    if (document.getElementById('pro-paypal-button-container')) {
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'blue',
+                shape: 'rect',
+                label: 'subscribe'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '4.99',
+                            currency_code: 'USD'
+                        },
+                        description: 'TrueTone AI Pro Plan - Monthly Subscription'
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    handlePaymentSuccess(details, 'pro');
+                });
+            },
+            onError: function(err) {
+                console.error('PayPal error:', err);
+                showAlert('Payment failed. Please try again.', 'danger');
+            }
+        }).render('#pro-paypal-button-container');
+    }
+
+    // Enterprise Plan Button
+    if (document.getElementById('enterprise-paypal-button-container')) {
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'blue',
+                shape: 'rect',
+                label: 'subscribe'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '12.99',
+                            currency_code: 'USD'
+                        },
+                        description: 'TrueTone AI Enterprise Plan - Monthly Subscription'
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    handlePaymentSuccess(details, 'enterprise');
+                });
+            },
+            onError: function(err) {
+                console.error('PayPal error:', err);
+                showAlert('Payment failed. Please try again.', 'danger');
+            }
+        }).render('#enterprise-paypal-button-container');
+    }
+}
+
+function handlePaymentSuccess(details, plan) {
+    // Show loading state
+    showAlert('Processing payment...', 'info');
+    
+    // Send payment details to server
+    fetch('/api/upgrade-plan', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            plan: plan,
+            payment_id: details.id,
+            payer_id: details.payer.payer_id,
+            email: details.payer.email_address
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showAlert('Payment successful! Your plan has been upgraded.', 'success');
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        } else {
+            showAlert('Payment processed but upgrade failed. Please contact support.', 'danger');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showAlert('Payment processed but upgrade failed. Please contact support.', 'danger');
+    });
+}
+
+// Add table styling
+document.addEventListener('DOMContentLoaded', function() {
+    const table = document.querySelector('.table');
+    if (table) {
+        table.style.borderCollapse = 'collapse';
+        table.style.width = '100%';
+        
+        const cells = table.querySelectorAll('td, th');
+        cells.forEach(cell => {
+            cell.style.padding = '0.75rem';
+            cell.style.border = '1px solid #dee2e6';
+            cell.style.textAlign = 'center';
+        });
+        
+        const headers = table.querySelectorAll('th');
+        headers.forEach(header => {
+            header.style.backgroundColor = 'var(--primary-blue)';
+            header.style.color = 'white';
+            header.style.fontWeight = 'bold';
+        });
+    }
+});
+</script>
+{% endblock %}

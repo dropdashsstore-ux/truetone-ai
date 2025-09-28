@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}TrueTone AI - Humanize Your Text{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="fade-in">
+            <h1>Transform AI Text into Human Writing</h1>
+            <p>Make your essays, articles, and content sound naturally human with TrueTone AI's advanced text humanization technology.</p>
+            <a href="{{ url_for('register') if not current_user.is_authenticated else url_for('humanize') }}" class="btn btn-primary btn-lg">
+                {% if current_user.is_authenticated %}
+                    Try Humanizer
+                {% else %}
+                    Get Started Free
+                {% endif %}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Why Choose TrueTone AI?</h2>
+            <p>Professional-grade text humanization for students and professionals</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Humanization</h3>
+                    <p>Advanced algorithms that understand human writing patterns and natural language flow to create authentic, conversational text.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>AI Detector Bypass</h3>
+                    <p>Our technology ensures your text passes all major AI detection tools, making it indistinguishable from human writing.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Student-Friendly</h3>
+                    <p>Perfect for academic writing, essays, and research papers. Maintains scholarly tone while adding natural human elements.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Plans Section -->
+<section class="pricing">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Choose Your Plan</h2>
+            <p>Start free, upgrade when you need more power</p>
+        </div>
+        
+        <div class="row">
+            <!-- Free Plan -->
+            <div class="col-md-4">
+                <div class="pricing-card card">
+                    <h3>Free Plan</h3>
+                    <div class="price">$0<span class="price-period">/month</span></div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-check text-success"></i> 100 words per input</li>
+                        <li><i class="fas fa-check text-success"></i> 3 essays per day</li>
+                        <li><i class="fas fa-check text-success"></i> Basic humanization</li>
+                        <li><i class="fas fa-check text-success"></i> Copy & download</li>
+                    </ul>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Pro Plan -->
+            <div class="col-md-4">
+                <div class="pricing-card card featured">
+                    <h3>Pro Plan</h3>
+                    <div class="price">$4.99<span class="price-period">/month</span></div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-check text-success"></i> Unlimited words</li>
+                        <li><i class="fas fa-check text-success"></i> Unlimited essays</li>
+                        <li><i class="fas fa-check text-success"></i> Advanced humanization</li>
+                        <li><i class="fas fa-check text-success"></i> Citation builder</li>
+                        <li><i class="fas fa-check text-success"></i> Priority support</li>
+                    </ul>
+                    <a href="{{ url_for('pricing') }}" class="btn btn-primary">Upgrade to Pro</a>
+                </div>
+            </div>
+            
+            <!-- Enterprise Plan -->
+            <div class="col-md-4">
+                <div class="pricing-card card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$12.99<span class="price-period">/month</span></div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-check text-success"></i> Everything in Pro</li>
+                        <li><i class="fas fa-check text-success"></i> Plagiarism checker</li>
+                        <li><i class="fas fa-check text-success"></i> Advanced features</li>
+                        <li><i class="fas fa-check text-success"></i> API access</li>
+                        <li><i class="fas fa-check text-success"></i> 24/7 support</li>
+                    </ul>
+                    <a href="{{ url_for('pricing') }}" class="btn btn-outline">Choose Enterprise</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="features" style="background: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>How It Works</h2>
+            <p>Simple, fast, and effective text humanization in three easy steps</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>1. Paste Your Text</h3>
+                    <p>Simply copy and paste your AI-generated text into our humanizer tool. No complex setup required.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>2. AI Processing</h3>
+                    <p>Our advanced AI analyzes your text and applies human writing patterns, natural flow, and authentic tone.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>3. Download & Use</h3>
+                    <p>Get your humanized text instantly. Copy to clipboard or download as DOCX/TXT for immediate use.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="hero" style="background: var(--secondary-blue);">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Ready to Humanize Your Text?</h2>
+            <p>Join thousands of students and professionals who trust TrueTone AI for their writing needs.</p>
+            <a href="{{ url_for('register') if not current_user.is_authenticated else url_for('humanize') }}" class="btn btn-primary btn-lg">
+                {% if current_user.is_authenticated %}
+                    Start Humanizing
+                {% else %}
+                    Try Free Now
+                {% endif %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Text Humanizer - TrueTone AI{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1000px; margin: 2rem auto;">
+    <div class="text-center mb-4">
+        <h1>Text Humanizer</h1>
+        <p>Transform your AI-generated text into natural, human-like writing</p>
+        {% if user.plan == 'free' %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                Free Plan: 100 words max per input, 3 essays per day
+                <a href="{{ url_for('pricing') }}" class="btn btn-sm btn-outline ml-2">Upgrade for Unlimited</a>
+            </div>
+        {% elif user.plan == 'enterprise' %}
+            <div class="alert alert-success">
+                <i class="fas fa-crown"></i>
+                Enterprise Plan: Unlimited access to all features including plagiarism checker and API access
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="row">
+        <!-- Input Section -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-edit"></i> Input Text</h3>
+                </div>
+                
+                <form id="humanize-form">
+                    <div class="form-group">
+                        <label for="essay-text" class="form-label">Paste your text here</label>
+                        <textarea 
+                            class="form-control" 
+                            id="essay-text" 
+                            name="text" 
+                            rows="12" 
+                            placeholder="Paste your AI-generated text here..."
+                            required
+                        ></textarea>
+                        <div id="word-counter" class="word-counter">0 words</div>
+                    </div>
+                    
+                    <button type="button" id="humanize-btn" class="btn btn-primary btn-lg">
+                        <i class="fas fa-magic"></i> Humanize Text
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Output Section -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-check-circle"></i> Humanized Text</h3>
+                </div>
+                
+                <div id="output-box" class="output-box">
+                    Your humanized text will appear here...
+                </div>
+                
+                <!-- Action Buttons -->
+                <div id="action-buttons" class="action-buttons" style="display: none;">
+                    <button id="copy-btn" class="btn btn-success tooltip">
+                        <i class="fas fa-copy"></i> Copy
+                        <span class="tooltiptext">Copy to clipboard</span>
+                    </button>
+                    
+                    <button id="download-txt" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download TXT
+                    </button>
+                    
+                    <button id="download-docx" class="btn btn-secondary">
+                        <i class="fas fa-file-word"></i> Download DOCX
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Usage Stats -->
+    {% if user.plan == 'free' %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3><i class="fas fa-chart-bar"></i> Usage Statistics</h3>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h4>Today's Essays</h4>
+                    <p class="text-muted">0 / 3 used</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Current Plan</h4>
+                    <p class="text-muted">Free Plan</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Word Limit</h4>
+                    <p class="text-muted">100 words per input</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    <!-- Tips Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3><i class="fas fa-lightbulb"></i> Tips for Better Results</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <ul>
+                    <li>Paste complete paragraphs for better context</li>
+                    <li>Include the original topic or subject matter</li>
+                    <li>Remove any formatting before pasting</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>For academic writing, mention the subject area</li>
+                    <li>Specify the desired tone (formal, casual, etc.)</li>
+                    <li>Review and edit the output for perfection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Additional JavaScript for the humanize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Add character limit warning for free users
+    const textArea = document.getElementById('essay-text');
+    const isFreePlan = document.body.dataset.userPlan === 'free';
+    
+    if (isFreePlan && textArea) {
+        textArea.addEventListener('input', function() {
+            const text = this.value.trim();
+            const wordCount = text ? text.split(/\s+/).length : 0;
+            
+            if (wordCount > 100) {
+                this.style.borderColor = '#dc3545';
+                this.style.backgroundColor = '#fff5f5';
+            } else {
+                this.style.borderColor = '';
+                this.style.backgroundColor = '';
+            }
+        });
+    }
+    
+    // Add loading state to humanize button
+    const humanizeBtn = document.getElementById('humanize-btn');
+    if (humanizeBtn) {
+        humanizeBtn.addEventListener('click', function() {
+            if (this.disabled) return;
+            
+            // Add loading spinner
+            this.innerHTML = '<span class="spinner"></span> Processing...';
+            this.disabled = true;
+        });
+    }
+});
+</script>
+{% endblock %}

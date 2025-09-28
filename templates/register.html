@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Register - TrueTone AI{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin: 4rem auto;">
+    <div class="card fade-in">
+        <div class="card-header text-center">
+            <h2>Create Account</h2>
+        </div>
+        
+        <form method="POST" id="register-form">
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required minlength="6">
+                <small class="text-muted">Minimum 6 characters</small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+        </form>
+        
+        <div class="text-center mt-3">
+            <p>Already have an account? <a href="{{ url_for('login') }}" class="text-primary">Login here</a></p>
+        </div>
+        
+        <div class="alert alert-info mt-3">
+            <small>
+                <i class="fas fa-info-circle"></i>
+                By creating an account, you'll start with our Free Plan (100 words per input, 3 essays per day).
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.getElementById('register-form').addEventListener('submit', function(e) {
+    if (!validateForm('register-form')) {
+        e.preventDefault();
+    }
+});
+</script>
+{% endblock %}

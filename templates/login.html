@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Login - TrueTone AI{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin: 4rem auto;">
+    <div class="card fade-in">
+        <div class="card-header text-center">
+            <h2>Login to TrueTone AI</h2>
+        </div>
+        
+        <form method="POST" id="login-form">
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+        
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a href="{{ url_for('register') }}" class="text-primary">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    if (!validateForm('login-form')) {
+        e.preventDefault();
+    }
+});
+</script>
+{% endblock %}
